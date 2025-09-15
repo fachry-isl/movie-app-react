@@ -1,4 +1,4 @@
-# Simple Movie App with ReactJS
+# TMDB Movie App with ReactJS
 
 ## Feature:
 
