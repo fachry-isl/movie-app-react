@@ -12,7 +12,7 @@
 
 ## Potential Improvement
 
-- [ ] Add Persistent Storage for Favorited Movies
-- [ ] Add Authentication
-- [ ] Improve UI for Modern Application
+- [x] Add Authentication (Login, Logout) using Local Storage
+- [ ] Add Persistent Storage (PostgreSQL) for Favorited Movies and User Auth
+- [ ] Improve UI
 - [ ] Add Video Media Player for Preview

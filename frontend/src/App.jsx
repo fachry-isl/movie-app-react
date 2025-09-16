@@ -1,22 +1,60 @@
 import "./css/App.css";
-import MovieCard from "./components/MovieCard";
+
+import { Routes, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
-import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
 import NavBar from "./pages/Navbar";
-import { MovieProvider } from "./contexts/MovieContext";
 import MovieDetail from "./pages/MovieDetail";
 
+import { MovieProvider } from "./contexts/MovieContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import ProtectedRoute from "./pages/ProtectedRoute";
+
+import { useLocation } from "react-router-dom";
+
 function App() {
+  // Use token to detect whether to show navigation
+  // const { token } = useAuth();
+  // Use location to detect whether to show navigation
+  const location = useLocation();
+
+  const isShowNavigation = location.pathname !== "/login";
+
   return (
-    <MovieProvider>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/movie/:id" element={<MovieDetail />} />
-      </Routes>
-    </MovieProvider>
+    <AuthProvider>
+      <MovieProvider>
+        {isShowNavigation && <NavBar />}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute>
+                <Favorites />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/movie/:id"
+            element={
+              <ProtectedRoute>
+                <MovieDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </MovieProvider>
+    </AuthProvider>
   );
 }
 

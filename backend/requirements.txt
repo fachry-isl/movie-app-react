@@ -1,3 +1,11 @@
+# API
 fastapi
+# ASGS Server for API
 uvicorn
+
+# Data Integrity
 pydantic
+
+# Database Connection
+sqlalchemy
+asyncpg 
