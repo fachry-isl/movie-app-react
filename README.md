@@ -16,3 +16,5 @@
 - [ ] Add Persistent Storage (PostgreSQL) for Favorited Movies and User Auth
 - [ ] Improve UI
 - [ ] Add Video Media Player for Preview
+- [ ] Simple Deployment
+- [ ] Add Continuous Integration and Deployment (CI/CD)
