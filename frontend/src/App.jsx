@@ -8,8 +8,8 @@ import Login from "./pages/Login";
 import NavBar from "./pages/Navbar";
 import MovieDetail from "./pages/MovieDetail";
 
-import { MovieProvider } from "./contexts/MovieContext";
-import { AuthProvider } from "./contexts/AuthContext";
+import { MovieProvider } from "./contexts/MovieProvider";
+import { AuthProvider } from "./contexts/AuthProvider";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 import { useLocation } from "react-router-dom";

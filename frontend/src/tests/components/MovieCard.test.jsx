@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { it, expect, describe } from "vitest";
 import MovieCard from "../../components/MovieCard";
-import { MovieProvider } from "../../contexts/MovieContext";
+import { MovieProvider } from "../../contexts/MovieProvider";
 import { MemoryRouter } from "react-router-dom";
 
 describe("Movie Card Component", () => {
