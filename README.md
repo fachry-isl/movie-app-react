@@ -13,9 +13,9 @@
 ## Potential Improvement
 
 - [x] Add Authentication (Login, Logout) using Local Storage
-- [ ] Add Persistent Storage (PostgreSQL) for Favorited Movies and User Auth
-- [ ] Improve UI
-- [ ] Add Video Media Player for Preview
-- [ ] Simple Deployment
 - [x] Add Unit/Instrumental Testing
-- [ ] Add Continuous Integration and Deployment (CI/CD)
+- [x] Add Continuous Integration and Deployment (CI/CD)
+- [ ] Add Persistent Storage (PostgreSQL) for Favorited Movies and User Auth
+- [ ] Improve UI using Bootstrap or Tailwind CSS
+- [ ] Add Video Media Player for Preview
+- [ ] Deploy Code to Hosting Service
