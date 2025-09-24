@@ -17,5 +17,5 @@
 - [ ] Improve UI
 - [ ] Add Video Media Player for Preview
 - [ ] Simple Deployment
-- [ ] Add Unit/Instrumental Testing
+- [x] Add Unit/Instrumental Testing
 - [ ] Add Continuous Integration and Deployment (CI/CD)
