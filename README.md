@@ -3,7 +3,7 @@
 ## Feature:
 
 - Search Movie: Search movie by calling TMDB API
-- Favorite : Favorite list of movies using React Context
+- Favorite : Favorite list of movies using LocalStorage
 
 ## Stacks
 
