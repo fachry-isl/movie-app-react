@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../css/Navbar.css";
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/useAuth";
 
 function NavBar() {
   const { logout } = useAuth();

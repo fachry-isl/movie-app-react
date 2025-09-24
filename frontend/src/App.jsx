@@ -9,14 +9,12 @@ import NavBar from "./pages/Navbar";
 import MovieDetail from "./pages/MovieDetail";
 
 import { MovieProvider } from "./contexts/MovieContext";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 import { useLocation } from "react-router-dom";
 
 function App() {
-  // Use token to detect whether to show navigation
-  // const { token } = useAuth();
   // Use location to detect whether to show navigation
   const location = useLocation();
 
