@@ -8,4 +8,5 @@ pydantic
 
 # Database Connection
 sqlalchemy
-asyncpg 
+asyncpg
+psycopg2-binary
