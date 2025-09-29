@@ -22,10 +22,4 @@ def get_db():
         yield db
     finally:
         db.close()
-        
-def create_tables():
-    from models import User, Favorite
-    Base.metadata.create_all(bind=engine)
 
-if __name__ == "__main__":
-    create_tables()

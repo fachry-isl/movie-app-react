@@ -1,26 +1,47 @@
 from pydantic import BaseModel
+from typing import Optional, List
 
-class FavoriteBase(BaseModel):
-    user_id: int
+
+# =========================
+# Movie Schemas
+# =========================
+class MovieBase(BaseModel):
     movie_id: int
     movie_name: str
-    movie_description: str | None = None
+    movie_description: Optional[str] = None
 
-class FavoriteOut(FavoriteBase):
+
+class MovieOut(MovieBase):
+    class Config:
+        from_attributes = True
+
+
+# =========================
+# Favorite Schemas
+# =========================
+class FavoriteBase(BaseModel):
+    movie_id: int  # only needs movie_id (Movie table handles details)
+
+
+class FavoriteOut(BaseModel):
     favorite_id: int
-    user_id: int
+    movie: MovieOut  # nested movie details
 
     class Config:
-        from_attribute = True
+        from_attributes = True
 
+
+# =========================
+# User Schemas
+# =========================
 class UserBase(BaseModel):
     username: str
     password: str
 
+
 class UserOut(UserBase):
     user_id: int
-    favorites: list[FavoriteOut] = []
-    
+    favorites: List[FavoriteOut] = []
 
     class Config:
-        from_attribute = True
+        from_attributes = True
