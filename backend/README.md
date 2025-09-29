@@ -118,10 +118,10 @@ erDiagram
         int favorite_id PK
         int user_id FK
         int movie_id FK
-        unique (user_id, movie_id)
+        string user_movie_unique  "Unique constraint (user_id + movie_id)"
     }
 
-    USER ||--o{ FAVORITE : "has"
-    MOVIE ||--o{ FAVORITE : "is in"
+    USER ||--o{ FAVORITE : has
+    MOVIE ||--o{ FAVORITE : contains
 
 ```
