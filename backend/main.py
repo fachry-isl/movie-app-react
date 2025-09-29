@@ -26,8 +26,12 @@ async def get_users(db: Session = Depends(get_db)):
     return services.get_users(db)
 
 @app.post("/user/", response_model=schemas.UserBase)
-async def  add_user(user: schemas.UserBase, db: Session = Depends(get_db)):
+async def add_user(user: schemas.UserBase, db: Session = Depends(get_db)):
     return services.create_user(db, user)
+
+@app.post("/favorites/remove/")
+async def remove_favorites(user_id: int, movie_id: int, db: Session = Depends(get_db)):
+    return services.remove_favorite(db, user_id, movie_id)
 
 
 if __name__ == "__main__":

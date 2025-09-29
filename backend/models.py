@@ -15,7 +15,7 @@ class Favorite(Base):
     __tablename__ = "favorites"
     favorite_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("user.user_id"), nullable=False)
-    movie_id = Column(Integer, nullable=False)
+    movie_id = Column(Integer, nullable=False, unique=True)
     movie_name = Column(String, nullable=False)
     movie_description = Column(String)
     user = relationship("User", back_populates="favorites")
