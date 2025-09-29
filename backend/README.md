@@ -97,3 +97,31 @@ Allowed headers: `Content-Type`, `Authorization`
   "movie_description": "A mind-bending thriller"
 }
 ```
+
+## 📝Entity Relationship Diagram
+
+```mermaid
+erDiagram
+    USER {
+        int user_id PK
+        string username UK
+        string password
+    }
+
+    MOVIE {
+        int movie_id PK
+        string movie_name
+        string movie_description
+    }
+
+    FAVORITE {
+        int favorite_id PK
+        int user_id FK
+        int movie_id FK
+        unique (user_id, movie_id)
+    }
+
+    USER ||--o{ FAVORITE : "has"
+    MOVIE ||--o{ FAVORITE : "is in"
+
+```
