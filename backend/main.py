@@ -11,15 +11,6 @@ from users import auth_backend, fastapi_users, current_active_user
 
 app = FastAPI()
 
-# Enable CORS if frontend is separate
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://yourfrontend.com"],  
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 # Include FastAPI Users routers
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
@@ -45,6 +36,15 @@ app.include_router(
     fastapi_users.get_users_router(schemas.UserRead, schemas.UserUpdate),
     prefix="/users",
     tags=["users"],
+)
+
+# Enable CORS if frontend is separate
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "https://yourfrontend.com"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/hello")
