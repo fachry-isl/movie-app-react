@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { fakeApiLogin } from "../services/api";
+import { userAuth } from "../services/api";
 
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const Login = () => {
     setLoading(true);
     setError("");
     try {
-      const token = await fakeApiLogin(username, password);
+      const token = await userAuth(username, password);
       login(token);
       navigate("/");
     } catch (err) {
