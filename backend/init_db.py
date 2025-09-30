@@ -1,6 +1,12 @@
-from db import engine, Base
-import models  # ensure models are imported so Base knows them
+import asyncio
+from db import create_db_and_tables
+import models  # Import models to register them with Base
 
-print("Tables registered:", Base.metadata.tables.keys())
+async def init_database():
+    print("Creating database tables...")
+    print("Registered tables:", models.Base.metadata.tables.keys())
+    await create_db_and_tables()
+    print("Database tables created successfully!")
 
-Base.metadata.create_all(bind=engine)
+if __name__ == "__main__":
+    asyncio.run(init_database())

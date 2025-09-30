@@ -1,16 +1,28 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint
+from fastapi_users.db import SQLAlchemyBaseUserTable, SQLAlchemyBaseUserTableUUID
 from sqlalchemy.orm import relationship
 from db import Base
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+
 
 # Define User table
-class User(Base):
+class User(SQLAlchemyBaseUserTableUUID, Base):
+    """
+    User model that uses UUID as primary key.
+    SQLAlchemyBaseUserTableUUID already provides:
+    - id: UUID column (primary key)
+    - email: String column
+    - hashed_password: String column
+    - is_active: Boolean column
+    - is_superuser: Boolean column
+    - is_verified: Boolean column
+    """
     __tablename__ = "user"
-
-    user_id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True, nullable=False)
-    password = Column(String, nullable=False)
-
+    
     # One user can have many favorites
+    # Note: The foreign key in Favorite table should reference 'user.id' not 'user.user_id'
     favorites = relationship("Favorite", back_populates="user")
 
 
@@ -31,7 +43,8 @@ class Favorite(Base):
     __tablename__ = "favorites"
 
     favorite_id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("user.user_id"), nullable=False)
+    # Changed: Reference 'user.id' instead of 'user.user_id'
+    user_id = Column(UUID(as_uuid=True), ForeignKey("user.id"), nullable=False)
     movie_id = Column(Integer, ForeignKey("movie.movie_id"), nullable=False)
 
     # Relationships
