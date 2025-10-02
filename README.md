@@ -3,7 +3,7 @@
 ## Feature:
 
 - Search Movie: Search movie by calling TMDB API
-- Favorite : Favorite list of movies using PostgreSQL
+- Favorite : Favorite list of movies using PostgreSQL DB
 
 ## Stacks
 
