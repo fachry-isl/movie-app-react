@@ -19,8 +19,16 @@ async def set_favorite(db: AsyncSession, data: MovieBase, user_id: int):
     if not movie:
         movie = Movie(
             movie_id=data.movie_id,
-            movie_name=data.movie_name,
-            movie_description=data.movie_description
+            title=data.title,
+            overview=data.overview,
+            
+            release_date=data.release_date,
+            poster_path=data.poster_path,
+            vote_average=data.vote_average,
+            vote_count=data.vote_count,
+            genres=data.genres,
+            popularity=data.popularity,
+            original_language=data.original_language
         )
         db.add(movie)
         await db.commit()

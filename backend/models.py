@@ -1,9 +1,9 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, UniqueConstraint
 from fastapi_users.db import SQLAlchemyBaseUserTable, SQLAlchemyBaseUserTableUUID
 from sqlalchemy.orm import relationship
 from db import Base
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID, ARRAY
 import uuid
 
 
@@ -31,8 +31,17 @@ class Movie(Base):
     __tablename__ = "movie"
 
     movie_id = Column(Integer, primary_key=True, index=True)  # from TMDB API
-    movie_name = Column(String, nullable=False)
-    movie_description = Column(String)
+    title = Column(String, nullable=False)
+    overview = Column(String)
+    
+    # New Field
+    release_date = Column(String)
+    poster_path = Column(String)
+    vote_average = Column(Float)
+    vote_count = Column(Integer)
+    genres = Column(ARRAY(Integer))
+    popularity = Column(Float)
+    original_language = Column(String)
 
     # One movie can be favorited by many users
     favorites = relationship("Favorite", back_populates="movie")

@@ -8,8 +8,16 @@ import uuid
 # =========================
 class MovieBase(BaseModel):
     movie_id: int
-    movie_name: str
-    movie_description: Optional[str] = None
+    title: str
+    overview: Optional[str] = None
+    
+    release_date: Optional[str] = None
+    poster_path: Optional[str] = None
+    vote_average: Optional[float] = None
+    vote_count: Optional[int] = None
+    genres: Optional[List[int]] = None
+    popularity: Optional[float] = None
+    original_language: Optional[str] = None
 
 
 class MovieOut(MovieBase):
