@@ -3,7 +3,7 @@
 ## Feature:
 
 - Search Movie: Search movie by calling TMDB API
-- Favorite : Favorite list of movies using LocalStorage
+- Favorite : Favorite list of movies using PostgreSQL
 
 ## Stacks
 
@@ -15,7 +15,7 @@
 - [x] Add Authentication (Login, Logout) using Local Storage
 - [x] Add Unit/Instrumental Testing
 - [x] Add Continuous Integration and Deployment (CI/CD)
-- [ ] Add Persistent Storage (PostgreSQL) for Favorited Movies and User Auth
+- [x] Add Persistent Storage (PostgreSQL) for Favorited Movies and User Auth
 - [ ] Improve UI using Bootstrap or Tailwind CSS
 - [ ] Add Video Media Player for Preview
 - [ ] Deploy Code to Hosting Service

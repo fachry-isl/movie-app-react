@@ -34,11 +34,12 @@ const MovieDetail = () => {
   }
 
   const genres = movie.genres
-    ? movie.genres.map((g) => g.name).join(", ")
+    ? movie.genres.map((id) => genreMap[id] || id).join(", ")
     : movie.genre_ids
     ? movie.genre_ids.map((id) => genreMap[id] || id).join(", ")
     : "Unknown";
 
+  console.log();
   return (
     <div className="movie-detail-container">
       <div className="movie-detail-image-wrapper">
