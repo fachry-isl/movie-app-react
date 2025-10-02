@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { MovieContext } from "./MovieContext";
-import { addFavoriteToAPI, getFavoriteAPI } from "../services/api.js";
+import {
+  addFavoriteToAPI,
+  getFavoriteAPI,
+  removeFavoriteAPI,
+} from "../services/api.js";
 
 export const MovieProvider = ({ children }) => {
   const [favorites, setFavorites] = useState(() => {
     const storedFavs = localStorage.getItem("favorites");
     return storedFavs ? JSON.parse(storedFavs) : [];
   });
-
-  // TODO: Get Favorites from DB
   const loadFavorites = async () => {
     try {
       const favoriteMovies = await getFavoriteAPI();
@@ -33,42 +35,29 @@ export const MovieProvider = ({ children }) => {
     fetchFavorites();
   }, []);
 
-  // TODO: Add Favorite Local and API Sync
-
-  // OLD Implementation
-  // const addToFavorites = (movie) => {
-  //   setFavorites((prev) => [...prev, movie]);
-  // };
-
   const addToFavorites = async (movie) => {
     try {
-      // Add to local state immediately for instant UI feedback
+      // Add to react state immediately for instant UI feedback
       setFavorites((prev) => [...prev, movie]);
-      console.log("Added to local favorites:", movie);
-
       // Try to add to API
       await addFavoriteToAPI(movie);
-      console.log("Successfully added to API:", movie);
+      console.log(`Added Movie ID ${movie.id} from Favorite`);
     } catch (error) {
       console.error("Failed to add to API:", error.message);
       // Don't remove from local state - keep the optimistic update
     }
   };
-
-  // TODO: Remove Favorite Local and API Sync
-  // const removeFromFavorites = (movieId) => {
-  //   setFavorites((prev) => prev.filter((movie) => movie.id != movieId));
-  // };
-
   const removeFromFavorites = async (movieId) => {
-    // Remove favorite from local storage
-    setFavorites((prev) => prev.filter((movie) => movie.id != movieId));
-
     // Remove favorite from database
+    await removeFavoriteAPI(movieId);
+
+    reloadFavorites();
   };
 
   const isFavorite = (movieId) => {
-    return favorites.some((movie) => movie.id === movieId);
+    return favorites.some(
+      (movie) => movie.id === movieId || movie.movie_id === movieId
+    );
   };
 
   const value = {

@@ -11,20 +11,20 @@ function Favorite() {
     reloadFavorites();
   }, [reloadFavorites]);
 
-  if (favorites) {
+  if (favorites.length === 0) {
     return (
-      <div className="movies-grid">
-        {favorites.map((movie) => (
-          <MovieCard movie={movie} key={movie.movie_id} />
-        ))}
+      <div className="favorites-empty">
+        <h2>No Favorite Movies Yet</h2>
+        <b>Start adding movies to your favorites and they will appear here.</b>
       </div>
     );
   }
 
   return (
-    <div className="favorites-empty">
-      <h2>No Favorite Movies Yet</h2>
-      <b>Start adding movies to your favorites and they will appear here.</b>
+    <div className="movies-grid">
+      {favorites.map((movie) => (
+        <MovieCard movie={movie} key={movie.movie_id || movie.id} />
+      ))}
     </div>
   );
 }

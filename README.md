@@ -19,3 +19,4 @@
 - [ ] Improve UI using Bootstrap or Tailwind CSS
 - [ ] Add Video Media Player for Preview
 - [ ] Deploy Code to Hosting Service
+- [ ] Add Movie Cache for Better Responsiveness

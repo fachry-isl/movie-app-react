@@ -23,22 +23,10 @@ export const searchMovies = async (query) => {
 };
 
 // Backend API
-// Simulated API login function
-export const fakeApiLogin = (username, password) =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (username === "user" && password === "password") {
-        resolve("fake-jwt-token-123456");
-        console.log("Success Login");
-      } else {
-        reject("Invalid credentials");
-      }
-    }, 1000);
-  });
 
 export const userAuth = (username, password) =>
   new Promise((resolve, reject) => {
-    // Add a small delay before making the request (like fakeApiLogin)
+    // Add a small delay before making the request
     setTimeout(() => {
       const formData = new URLSearchParams();
       formData.append("username", username);
@@ -80,32 +68,13 @@ export const userAuth = (username, password) =>
     }, 1000); // 1 second delay before making request
   });
 
-// // Check if token is expired
-// const isTokenExpired = (token) => {
-//   if (!token) return true;
-
-//   try {
-//     const payload = JSON.parse(atob(token.split(".")[1]));
-//     return payload.exp * 1000 < Date.now();
-//   } catch (error) {
-//     console.log(error);
-//     return true;
-//   }
-// };
-
 // Get JWT token from localStorage
 const getAuthToken = () => {
   return localStorage.getItem("authToken");
 };
-// TODO: Add Favorite Movie Endpoint
+
 export const addFavoriteToAPI = async (movie) => {
   const token = getAuthToken();
-  console.log(token);
-
-  // if (!token || isTokenExpired(token)) {
-  //   throw new Error("Token expired or missing");
-  // }
-
   if (!token) {
     throw new Error("Token expired or missing");
   }
@@ -141,10 +110,9 @@ export const addFavoriteToAPI = async (movie) => {
   return await response.json();
 };
 
-// TODO: Get Favorite API Implementation
 export const getFavoriteAPI = async () => {
   const token = getAuthToken();
-  console.log(token);
+  if (!token) throw new Error("Authentication token not found");
 
   const response = await fetch(`${BACKEND_URL}/favorites/`, {
     method: "GET",
@@ -155,21 +123,37 @@ export const getFavoriteAPI = async () => {
   });
 
   if (!response.ok) {
-    if (response.status === 401) {
+    if (response.status === 401) throw new Error("Unauthorized");
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const favorites = await response.json();
+
+  // Extract only the movie object from each favorite entry
+  return favorites.map(({ movie }) => ({ ...movie }));
+};
+
+export const removeFavoriteAPI = async (movie_id) => {
+  const token = getAuthToken();
+
+  const response = await fetch(
+    `${BACKEND_URL}/favorites/?movie_id=${movie_id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    if (response.status == 400) {
       throw new Error("Unauthorized");
     }
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const data = await response.json();
-  // Map movie_name to title for each entry
-  const data_test = data.map((favorite) => ({
-    ...favorite.movie,
-  }));
-
-  console.log(data_test);
-
-  return data_test;
+  console.log(`Removed Movie ID ${movie_id} from Favorite`);
+  return response.json();
 };
-
-// TODO: Remove Favorite API Implementation

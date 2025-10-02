@@ -5,18 +5,19 @@ import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
-  const favorite = isFavorite(movie.id);
+  const movieId = movie.id ?? movie.movie_id;
+  const favorite = isFavorite(movieId);
 
   function onFavoriteClick(e) {
     e.preventDefault();
-    if (favorite) removeFromFavorites(movie.id);
+    if (favorite) removeFromFavorites(movieId);
     else addToFavorites(movie);
   }
 
   // Exercise: Add Navigation to Detail Page
   const navigate = useNavigate();
   function handleDetailClick() {
-    navigate(`/movie/${movie.id}`, { state: { movie } });
+    navigate(`/movie/${movieId}`, { state: { movie } });
   }
 
   return (
